@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-18T18:54:12.604Z",
+  "title": "Design System: Tablecloth companion",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Ultramarine Ink",
+        "canonical": "oklch(29.7% 0.099 266)",
+        "tonalRamp": [
+          "#01052c",
+          "#12204a",
+          "#2a3d6f",
+          "#4a5c88",
+          "#7080a3",
+          "#99a5bf",
+          "#c3cbdb",
+          "#eaeef9"
+        ]
+      },
+      "ink-2": {
+        "role": "primary",
+        "displayName": "Pressed Ink",
+        "canonical": "oklch(37.7% 0.103 267)",
+        "tonalRamp": [
+          "#020628",
+          "#13204a",
+          "#283b75",
+          "#485b90",
+          "#6e7fab",
+          "#96a4c7",
+          "#c0cae3",
+          "#e8eefd"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Faded Ink",
+        "canonical": "oklch(43.8% 0.084 269)",
+        "tonalRamp": [
+          "#040920",
+          "#182242",
+          "#2f3d68",
+          "#4b5b8a",
+          "#707fa8",
+          "#97a4c5",
+          "#c1cae3",
+          "#e8eeff"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "Crate Vermilion",
+        "canonical": "oklch(60.7% 0.204 33)",
+        "tonalRamp": [
+          "#220000",
+          "#431006",
+          "#771400",
+          "#a7280a",
+          "#df3f1b",
+          "#fd7658",
+          "#ffa88f",
+          "#ffe8e2"
+        ]
+      },
+      "red-text": {
+        "role": "secondary",
+        "displayName": "Stamp Vermilion",
+        "canonical": "oklch(54.2% 0.187 33)",
+        "tonalRamp": [
+          "#240000",
+          "#431006",
+          "#791000",
+          "#a82603",
+          "#d24f32",
+          "#ef8168",
+          "#ffb09b",
+          "#ffe8e1"
+        ]
+      },
+      "gold": {
+        "role": "tertiary",
+        "displayName": "Marigold",
+        "canonical": "oklch(79.9% 0.159 80)",
+        "tonalRamp": [
+          "#100a02",
+          "#2e220c",
+          "#513c13",
+          "#775718",
+          "#a4771c",
+          "#d2991e",
+          "#fdbf45",
+          "#f9edd9"
+        ]
+      },
+      "gold-hover": {
+        "role": "tertiary",
+        "displayName": "Marigold (hover)",
+        "canonical": "#f6bf41",
+        "tonalRamp": [
+          "#100a02",
+          "#2e220c",
+          "#513c13",
+          "#775718",
+          "#a4771c",
+          "#d2991e",
+          "#fdbf45",
+          "#f9edd9"
+        ]
+      },
+      "leaf": {
+        "role": "tertiary",
+        "displayName": "Leaf",
+        "canonical": "oklch(52.5% 0.127 146)",
+        "tonalRamp": [
+          "#001100",
+          "#002d08",
+          "#114d1c",
+          "#266f31",
+          "#4f9256",
+          "#7eb482",
+          "#add8af",
+          "#e2f4e3"
+        ]
+      },
+      "sky": {
+        "role": "neutral",
+        "displayName": "Pale Sky",
+        "canonical": "oklch(93.0% 0.020 252)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#232425",
+          "#3e4042",
+          "#5b5e62",
+          "#7c8186",
+          "#9fa5ad",
+          "#c3cbd6",
+          "#e6f0fb"
+        ]
+      },
+      "sky-2": {
+        "role": "neutral",
+        "displayName": "Deep Sky",
+        "canonical": "oklch(87.9% 0.031 252)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#222426",
+          "#3c4044",
+          "#585e65",
+          "#78818c",
+          "#9aa6b4",
+          "#bdccde",
+          "#e2f0ff"
+        ]
+      },
+      "stock": {
+        "role": "neutral",
+        "displayName": "Label Stock",
+        "canonical": "oklch(99.4% 0.007 88)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242423",
+          "#40403f",
+          "#5e5d5c",
+          "#81807e",
+          "#a6a4a2",
+          "#cccac7",
+          "#f0eeea"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Food name on the full-screen learn view; one per screen."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Notched banner title in the ink band; the screen h1."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Food names on crate labels."
+      },
+      "title-sm": {
+        "displayName": "Title small",
+        "purpose": "In-page section headings."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Track position and counts; always tabular."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Filled buttons and the add slot."
+      },
+      "body-lg": {
+        "displayName": "Body large",
+        "purpose": "The one food fact on the learn view, max 34ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default reading text for everything a child reads."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase food group on labels and chips."
+      }
+    },
+    "shadows": [
+      {
+        "name": "label-frame",
+        "value": "inset 0 0 0 4px var(--stock), inset 0 0 0 6px var(--ink)",
+        "purpose": "Printed double rule on crate labels (gold gap on the add slot)."
+      },
+      {
+        "name": "learn-frame",
+        "value": "inset 0 0 0 5px var(--stock), inset 0 0 0 8px var(--ink)",
+        "purpose": "Heavier double rule on the full-screen learn card."
+      },
+      {
+        "name": "empty-slot-frame",
+        "value": "inset 0 0 0 4px var(--stock), inset 0 0 0 5px rgba(22, 40, 94, 0.3)",
+        "purpose": "Faded frame on an unprinted shelf slot."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The one easing curve for every arrival and press."
+      },
+      {
+        "name": "stamp",
+        "value": "520ms: translateY(-18px) scale(1.07) rotate(-2.5deg) blur(1.5px) -> overshoot -> rest",
+        "purpose": "Ink-press arrival of a new label and a new sticker."
+      },
+      {
+        "name": "ink-in",
+        "value": "700ms, 120ms delay: clip-path inset(0 100% 0 0) -> inset(0)",
+        "purpose": "Label art wipes in as if printed."
+      },
+      {
+        "name": "swap",
+        "value": "380ms: translateX(24px), opacity 0 -> rest",
+        "purpose": "Moving between foods on the learn view."
+      },
+      {
+        "name": "hop",
+        "value": "600ms: translateY(-40%) scale(0.7) -> overshoot -> rest",
+        "purpose": "Character sticker lands on its track square."
+      },
+      {
+        "name": "button-press",
+        "value": "transform 120ms, background-color 160ms; active translateY(2px)",
+        "purpose": "Button press feedback."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "all animation and transition durations 1ms, single iteration; phone waves hidden",
+        "purpose": "prefers-reduced-motion baseline."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "column",
+        "value": "480px",
+        "purpose": "Max app column width."
+      },
+      {
+        "name": "framed",
+        "value": "520px",
+        "purpose": "Surround turns Deep Sky and the column gets ink side rules."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Marigold slab action block; the default next step.",
+      "html": "<button class=\"ds-btn\">Add a food</button>",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;padding:12px 18px;border:3px solid var(--ink);border-radius:0;background:var(--gold);color:var(--ink);font-family:var(--slab);font-weight:400;font-size:21px;line-height:1.1;cursor:pointer;transition:transform 120ms var(--ease-out),background-color 160ms;} .ds-btn:hover{background:#f6bf41;} .ds-btn:active{transform:translateY(2px);} .ds-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px;}"
+    },
+    {
+      "name": "Send Button",
+      "kind": "button",
+      "refersTo": "button-red",
+      "description": "Vermilion action that sends the crate to the tablecloth.",
+      "html": "<button class=\"ds-btn ds-btn-red\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"7\" y=\"3\" width=\"10\" height=\"18\" rx=\"1\"/><path d=\"M3 9c-1.3 1.8-1.3 4.2 0 6M21 9c1.3 1.8 1.3 4.2 0 6\"/></svg> Done! Tap the tablecloth</button>",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;padding:12px 18px;border:3px solid var(--ink);border-radius:0;background:var(--gold);color:var(--ink);font-family:var(--slab);font-weight:400;font-size:21px;line-height:1.1;cursor:pointer;transition:transform 120ms var(--ease-out),background-color 160ms;} .ds-btn:hover{background:#f6bf41;} .ds-btn:active{transform:translateY(2px);} .ds-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px;} .ds-btn-red{background:var(--red-text);color:var(--stock);} .ds-btn-red:hover{background:var(--red);}"
+    },
+    {
+      "name": "Disabled Button",
+      "kind": "button",
+      "refersTo": "button-disabled",
+      "description": "Dashed and faded: not live yet.",
+      "html": "<button class=\"ds-btn\" disabled>Tap the tablecloth</button>",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;padding:12px 18px;border:3px solid var(--ink);border-radius:0;background:var(--gold);color:var(--ink);font-family:var(--slab);font-weight:400;font-size:21px;line-height:1.1;cursor:pointer;transition:transform 120ms var(--ease-out),background-color 160ms;} .ds-btn:hover{background:#f6bf41;} .ds-btn:active{transform:translateY(2px);} .ds-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px;} .ds-btn:disabled{background:transparent;color:var(--ink-soft);border-style:dashed;cursor:not-allowed;transform:none;}"
+    },
+    {
+      "name": "Notched Banner",
+      "kind": "custom",
+      "refersTo": "banner",
+      "description": "The screen h1, a notched ribbon in the ink band.",
+      "html": "<header class=\"ds-band\"><h1 class=\"ds-banner\">Tonight’s crate</h1><p class=\"ds-band-sub\">Wednesday 18 November</p></header>",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-band{background:var(--ink);color:var(--stock);padding:14px 20px 22px;font-family:var(--read);} .ds-banner{display:inline-block;margin:0;background:var(--red);color:var(--stock);font-family:var(--slab);font-weight:400;font-size:36px;line-height:1;padding:11px 26px 13px;clip-path:polygon(0 0,100% 0,calc(100% - 14px) 50%,100% 100%,0 100%,14px 50%);} .ds-band-sub{margin:10px 0 0;font-size:16px;color:#d6dff2;}"
+    },
+    {
+      "name": "Crate Label",
+      "kind": "card",
+      "refersTo": "crate-label",
+      "description": "One food: colour art panel, slab name, group line, double-ruled stock.",
+      "html": "<div class=\"ds-label\"><div class=\"ds-label-art\"><svg viewBox=\"0 0 64 64\" width=\"58\" height=\"58\" aria-hidden=\"true\"><path d=\"M32 18c12 0 20 7 20 18s-9 17-20 17-20-6-20-17 8-18 20-18z\" fill=\"#e2401c\" stroke=\"#16285e\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/><path d=\"M24 15l8 6 8-6M32 21v-8\" fill=\"none\" stroke=\"#2f7d3a\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M20 32c1-5 4-8 8-9\" fill=\"none\" stroke=\"#fffdf8\" stroke-width=\"3\" stroke-linecap=\"round\"/></svg></div><div class=\"ds-label-body\"><h3 class=\"ds-label-name\">Tomato</h3><p class=\"ds-label-meta\">Vegetable </p></div><button class=\"ds-label-x\" aria-label=\"Remove\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></button></div>",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-label{display:grid;grid-template-columns:88px 1fr auto;min-height:104px;background:var(--stock);border:3px solid var(--ink);box-shadow:inset 0 0 0 4px var(--stock),inset 0 0 0 6px var(--ink);color:var(--ink);font-family:var(--read);} .ds-label-art{display:grid;place-items:center;background:var(--leaf);border-right:3px solid var(--ink);margin:6px 0 6px 6px;} .ds-label-body{padding:14px 14px 12px;display:flex;flex-direction:column;justify-content:center;} .ds-label-name{margin:0;font-family:var(--slab);font-weight:400;font-size:34px;line-height:0.98;color:var(--leaf);} .ds-label-meta{margin:8px 0 0;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;} .ds-label-x{align-self:start;margin:10px 10px 0 0;width:44px;height:44px;display:grid;place-items:center;background:none;border:0;color:var(--ink);cursor:pointer;} .ds-label-x:hover{background:var(--sky);} .ds-label-x:focus-visible{outline:3px solid var(--ink);outline-offset:3px;}"
+    },
+    {
+      "name": "Add Slot",
+      "kind": "button",
+      "refersTo": "add-slot",
+      "description": "Marigold sibling of a label that adds the next food.",
+      "html": "<button class=\"ds-add\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg> Add another food</button>",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-add{width:100%;min-height:76px;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--gold);color:var(--ink);border:3px solid var(--ink);box-shadow:inset 0 0 0 4px var(--gold),inset 0 0 0 6px var(--ink);font-family:var(--slab);font-size:21px;cursor:pointer;} .ds-add:hover{background:#f6bf41;} .ds-add:active{transform:translateY(2px);} .ds-add:focus-visible{outline:3px solid var(--ink);outline-offset:3px;}"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "search-input",
+      "description": "Square stock field with a heavy ink rule.",
+      "html": "<input class=\"ds-search\" placeholder=\"Search foods\" />",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-search{width:100%;min-height:56px;padding:12px 14px;border:3px solid var(--ink);border-radius:0;background:var(--stock);color:var(--ink);font-family:var(--read);font-size:18px;caret-color:var(--red);} .ds-search::placeholder{color:var(--ink-soft);} .ds-search:focus-visible{outline:3px solid var(--ink);outline-offset:3px;}"
+    },
+    {
+      "name": "Bottom Nav",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "Three-item stock bar; the current item gets a marigold block.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\"><span class=\"ds-ico\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 9h18v11H3zM3 9l2-5h14l2 5M3 14.5h18M8 9v11M16 9v11\"/></svg></span>Tonight</a><a href=\"#\"><span class=\"ds-ico\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20h5v-5h6v-5h5V4\"/><circle cx=\"20\" cy=\"4\" r=\"1.5\" fill=\"currentColor\"/><path d=\"M4 20v-3\"/></svg></span>Track</a><a href=\"#\"><span class=\"ds-ico\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 20h18M3 12h18M6 12V7h4v5M14 12V5l4 1-1 6M6 20v-4h3v4M13 20v-5h5v5\"/></svg></span>Shelf</a></nav>",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-nav{display:grid;grid-template-columns:repeat(3,1fr);height:72px;background:var(--stock);border-top:3px solid var(--ink);font-family:var(--read);} .ds-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--ink);text-decoration:none;font-weight:700;font-size:14px;} .ds-ico{width:52px;height:32px;display:grid;place-items:center;border:2px solid transparent;} .ds-nav a[aria-current=\"page\"] .ds-ico{background:var(--gold);border-color:var(--ink);} .ds-nav a:focus-visible{outline:3px solid var(--ink);outline-offset:-6px;}"
+    },
+    {
+      "name": "Status Line",
+      "kind": "custom",
+      "refersTo": "status-ok",
+      "description": "Ruled status block: leaf ok, marigold wait, stock with vermilion error.",
+      "html": "<p class=\"ds-status ds-ok\">Sent to the tablecloth</p><p class=\"ds-status ds-wait\">Hold the phone on the cloth</p><p class=\"ds-status ds-err\">Could not reach the tablecloth</p>",
+      "css": ":host{--ink:#16285e;--ink-2:#2a3d78;--ink-soft:#3f4f80;--red:#e2401c;--red-text:#c4330f;--gold:#f2b01e;--leaf:#2f7d3a;--sky:#dfe9f5;--sky-2:#c9d9ec;--stock:#fffdf8;--slab:\"Alfa Slab One\",\"Rockwell\",serif;--read:\"Atkinson Hyperlegible\",system-ui,sans-serif;--rule:3px;--ease-out:cubic-bezier(0.16,1,0.3,1);} .ds-status{margin:0 0 10px;padding:14px 16px;border:3px solid var(--ink);font-family:var(--read);font-weight:700;font-size:18px;color:var(--ink);} .ds-ok{background:var(--leaf);color:var(--stock);} .ds-wait{background:var(--gold);} .ds-err{background:var(--stock);border-color:var(--red);color:var(--red-text);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Market Crate Label",
+    "overview": "Every screen is a print job on a fruit crate or a seed packet. A pale sky ground carries ultramarine ink, three flat spot colours (vermilion, marigold, leaf) and an off-white label stock that appears only where something is printed. Each food tonight is its own crate label: a flat produce drawing on a solid colour panel, a huge slab-serif name, and a rubber-stamped familiarity mark. The child does not tap tiles; they add labels to a stack and stamp them.\n\nDensity is low and scale contrast does the hierarchy. One phone-width column, one notched banner per screen in the ink band, names set huge, everything a child reads set in a face built for early readers. Depth comes from printed rules (a heavy ink border with an inset stock gap and a second hairline of ink), never from blur. Corners are square everywhere. Motion is mechanical and print-like: things arrive by being pressed onto the paper.\n\nThe system rejects the rounded-pastel-card kids app: no soft shadows, no rounded cards, no mascot greeting, no tile grid of identical pastel squares.",
+    "keyCharacteristics": [
+      "Pale sky ground, ultramarine ink for the shell band and all line work.",
+      "Three spot inks (vermilion, marigold, leaf), never more than three inks on one label.",
+      "Label stock (#fffdf8) only inside printed objects.",
+      "Alfa Slab One for names, banners, numbers and buttons; Atkinson Hyperlegible for anything read as a sentence.",
+      "Double-ruled labels with square corners; notched ribbon banners.",
+      "Ink-press arrival motion with one shared ease-out curve."
+    ],
+    "rules": [
+      {
+        "name": "The Three Inks Rule",
+        "body": "A label, chip, produce drawing or sticker is printed in ink plus at most two of vermilion, marigold and leaf, on stock. Panel colour and name colour come as a pair: vermilion panel names in vermilion, leaf in leaf, marigold and ink panels name in ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stock Is Paper Rule",
+        "body": "Label stock (#fffdf8) appears only on printed objects and writable fields. The page ground is always pale sky; never lay stock as a full-bleed background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Small Red Rule",
+        "body": "Red text below the 24px slab sizes uses Stamp Vermilion (red-text), not Crate Vermilion.",
+        "section": "colors"
+      },
+      {
+        "name": "The Slab Names, Atkinson Reads Rule",
+        "body": "Alfa Slab One sets names, banners, numbers, button verbs and stamps. Any sentence a child has to read (facts, instructions, notes, status) is Atkinson Hyperlegible. Never set a sentence in the slab.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Count Rule",
+        "body": "Every number that counts (crate count, position, steps, stepper value, log rows) is tabular and right-aligned against its label.",
+        "section": "typography"
+      },
+      {
+        "name": "The Printed Frame Rule",
+        "body": "Box-shadow is only ever inset and only ever draws a rule. If a shadow has blur or offset, it does not belong.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Dashed Means Not Yet Rule",
+        "body": "A dashed border marks something not live: the disabled button, informational notes, the danger-zone divider. Never dash a live, tappable control.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do print every object on Label Stock with a 3px ink border and square corners; frame labels with the inset stock-then-ink rule.",
+      "Do pair each label panel with its name colour (vermilion/vermilion, leaf/leaf, marigold/ink, ink/ink).",
+      "Do keep one notched banner per screen, in the ink band, as the h1.",
+      "Do set names, banners, counts and button verbs in Alfa Slab One, and every sentence in Atkinson Hyperlegible.",
+      "Do use Stamp Vermilion (#c4330f) for small red text.",
+      "Do animate arrivals with the ink-press family on cubic-bezier(0.16, 1, 0.3, 1), and collapse all motion under prefers-reduced-motion.",
+      "Do draw icons and produce as authored SVG in the 2.5px ink stroke family."
+    ],
+    "donts": [
+      "Don't round corners on cards, labels, buttons or inputs.",
+      "Don't use blurred or offset drop shadows on surfaces; depth is printed rules.",
+      "Don't use more than three inks on one label or drawing.",
+      "Don't set marigold as text on stock.",
+      "Don't fill the page with Label Stock; the ground is Pale Sky.",
+      "Don't dash the border of a control that works.",
+      "Don't add a mascot greeting or a grid of identical pastel tiles."
+    ]
+  }
+}
