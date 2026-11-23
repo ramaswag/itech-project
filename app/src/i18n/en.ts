@@ -132,6 +132,7 @@ export const en = {
   'dinner.sub': 'Time to play at the table',
   'dinner.text': 'Put {name} on the start square of the game board. Eat and play together. Press the button when dinner is finished.',
   'dinner.done': 'Dinner finished',
+  'dinner.phoneAway': 'You don’t need the phone while you eat. Leave it away from the table, and pick it up again when dinner is finished.',
 
 
   // result

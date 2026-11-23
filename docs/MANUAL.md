@@ -21,7 +21,7 @@ For the researcher running the first test. The family only sees the phone app an
 | 3 | Children | Check the plate. Tap a food to read about it again. Tap **Done! Read the story**. | Our dinner game |
 | 4 | Children | Read the story, or press **Listen**. Tap **Next**. | Story time |
 | 5 | Children | Take a photo of the toy (or choose a photo), pick an ink colour, give the toy a name. | Choose our toy |
-| 6 | Children | Put the toy on the start square of the paper board. Eat and play. | Dinner time! |
+| 6 | Children | Put the toy on the start square of the paper board. Eat and play. The screen tells them the phone can stay away from the table. | Dinner time! |
 | 7 | Children | After dinner tap **Dinner finished**, then pick the square the toy ended on. | Dinner finished! |
 
 The toy is photographed only the first time. Later dinners start again at step 2 and skip step 5 until the toy has finished the track.

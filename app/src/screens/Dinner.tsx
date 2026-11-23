@@ -28,6 +28,7 @@ export default function Dinner() {
         </div>
       )}
       <p className="section lead">{t('dinner.text', { name: character?.name ?? '' })}</p>
+      <div className="section" style={{ marginTop: 16 }}><p className="note">{t('dinner.phoneAway')}</p></div>
       <div className="dock">
         <button className="btn red" onClick={finish}><IconCheck /> {t('dinner.done')}</button>
       </div>

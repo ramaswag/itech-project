@@ -134,6 +134,7 @@ export const nl: Dict = {
   'dinner.sub': 'Tijd om aan tafel te spelen',
   'dinner.text': 'Zet {name} op het startvak van het spelbord. Eet en speel samen. Druk op de knop als het eten klaar is.',
   'dinner.done': 'Klaar met eten',
+  'dinner.phoneAway': 'Je hebt de telefoon niet nodig tijdens het eten. Leg hem weg van tafel en pak hem weer als het eten klaar is.',
 
 
   // result
