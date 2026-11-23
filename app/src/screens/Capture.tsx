@@ -68,11 +68,11 @@ export default function Capture() {
     img.src = URL.createObjectURL(file)
   }
 
-  // With a menu on the plate the next step is the tablecloth; from the shelf with no menu, start a meal.
+  // With a menu on the plate the next step is dinner; from the shelf with no menu, start a meal.
   const save = () => {
     if (!sticker || !name.trim()) return
     addCharacter(name.trim(), sticker.dataUrl)
-    go(menu.items.length ? 'tap' : 'add')
+    go(menu.items.length ? 'dinner' : 'add')
   }
 
   const back = menu.items.length ? 'story' : 'shelf'

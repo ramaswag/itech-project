@@ -33,7 +33,7 @@ export default function Story() {
 
   const next = () => {
     if (canSpeak()) window.speechSynthesis.cancel()
-    go(character ? 'tap' : 'capture')
+    go(character ? 'dinner' : 'capture')
   }
 
   return (
@@ -43,7 +43,7 @@ export default function Story() {
         {PARAGRAPHS.map((k) => <p key={k}>{t(k)}</p>)}
       </article>
       <div className="dock">
-        <button className="btn red" onClick={next}>{character ? t('story.nextTap') : t('story.next')} <IconNext /></button>
+        <button className="btn red" onClick={next}>{character ? t('story.nextDinner') : t('story.next')} <IconNext /></button>
         {canSpeak() && (
           <button className="btn plain" onClick={listen} aria-pressed={speaking}>{speaking ? t('story.stop') : t('story.listen')}</button>
         )}

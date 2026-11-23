@@ -276,22 +276,6 @@ img { display: block; max-width: 100%; }
 .learn-swap { animation: swap 380ms var(--ease-out) both; }
 @keyframes swap { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
 
-/* ---------- tap ---------- */
-.cloth { margin: 20px 16px 0; border: var(--rule) solid var(--ink); background: var(--stock); position: relative; overflow: hidden; }
-.cloth svg { display: block; width: 100%; height: auto; }
-.phone-wave { transform-origin: 50% 50%; transform-box: fill-box; animation: wave 1.6s var(--ease-out) infinite; }
-.phone-wave.w2 { animation-delay: 0.4s; }
-@keyframes wave { from { opacity: 0.9; transform: scale(0.6); } to { opacity: 0; transform: scale(1.5); } }
-.phone-hover { animation: hover 2.4s ease-in-out infinite; }
-@keyframes hover { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-.status { margin: 16px 16px 0; padding: 14px 16px; border: var(--rule) solid var(--ink); font-weight: 700; font-size: 18px; display: flex; gap: 12px; align-items: center; }
-.status.ok { background: var(--leaf); color: var(--stock); }
-.status.err { background: var(--stock); border-color: var(--red); color: var(--red-text); }
-.status.wait { background: var(--gold); }
-.mini-list { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.mini-list li { border: 2px solid var(--ink); background: var(--stock); padding: 4px 10px; font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 6px; }
-.mini-list svg { width: 22px; height: 22px; }
-
 /* ---------- shelf ---------- */
 .shelf { margin: 18px 16px 0; display: grid; gap: 0; }
 .plank { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 14px 8px 0; border-bottom: 10px solid var(--ink); align-items: end; min-height: 150px; }

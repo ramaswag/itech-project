@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Band } from '../components/Shell'
 import { FoodLabel } from '../components/FoodLabel'
-import { IconCheck, IconPlus, IconTap } from '../components/Icons'
+import { IconPlus, IconTap } from '../components/Icons'
 import { useStore } from '../store'
 import { useI18n } from '../i18n'
 import { go } from '../router'
@@ -61,14 +61,7 @@ export default function Tonight() {
             <IconPlus /> {t('tonight.addFood')}
           </button>
         )}
-        {sent ? (
-          <>
-            <button className="btn red" onClick={() => go('result')}>
-              <IconCheck /> {t('tonight.dinnerFinished')}
-            </button>
-            <button className="btn-text" onClick={() => go('tap')}>{t('tonight.sentToCloth')}</button>
-          </>
-        ) : n > 0 && (
+        {!sent && n > 0 && (
           <button className="btn red" onClick={() => go('story')}>
             <IconTap /> {t('tonight.done')}
           </button>

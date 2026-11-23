@@ -8,7 +8,7 @@ import AddFood from './screens/AddFood'
 import Learn from './screens/Learn'
 import FoodPreview from './screens/FoodPreview'
 import Story from './screens/Story'
-import Tap from './screens/Tap'
+import Dinner from './screens/Dinner'
 import Result from './screens/Result'
 import Shelf from './screens/Shelf'
 import Capture from './screens/Capture'
@@ -44,7 +44,7 @@ function Screens() {
       : <FoodPreview id={arg} />; break
     case 'learn': screen = <Learn index={Number(arg) || 0} />; break
     case 'story': screen = <Story />; break
-    case 'tap': screen = <Tap />; break
+    case 'dinner': screen = <Dinner />; break
     case 'result': screen = <Result />; break
     case 'shelf': screen = <Shelf />; nav = 'shelf'; break
     case 'capture': screen = <Capture />; break

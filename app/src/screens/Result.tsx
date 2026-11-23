@@ -60,7 +60,7 @@ export default function Result() {
 
   return (
     <>
-      <Band banner={t('result.title')} bannerTone="leaf" back="tap" onBack={() => go('tap')} sub={t('result.sub', { name: character.name })} />
+      <Band banner={t('result.title')} bannerTone="leaf" back="dinner" onBack={() => go('dinner')} sub={t('result.sub', { name: character.name })} />
       <div className="section" style={{ marginTop: 20 }}>
         <div className="pick-grid" role="radiogroup" aria-label={t('result.groupAria')}>
           {squares.map((n) => (

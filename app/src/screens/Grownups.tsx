@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Band } from '../components/Shell'
 import { useStore } from '../store'
 import { LangToggle, useI18n } from '../i18n'
-import { nfcSupported } from '../lib/nfc'
 import { go } from '../router'
 import { IconX } from '../components/Icons'
 
@@ -44,11 +43,6 @@ export default function Grownups() {
           <input id="new-kid" className="search" style={{ flex: 1, minWidth: 0 }} placeholder={t('grownups.newKidPlaceholder')} value={newKid} onChange={(e) => setNewKid(e.target.value)} maxLength={20} />
           <button className="btn small" disabled={!newKid.trim()}>{t('grownups.add')}</button>
         </form>
-      </section>
-
-      <section className="section">
-        <h2 className="h2">{t('grownups.nfc')}</h2>
-        <p className="note">{nfcSupported() ? t('grownups.nfcOn') : t('grownups.nfcOff')}</p>
       </section>
 
       <section className="section">

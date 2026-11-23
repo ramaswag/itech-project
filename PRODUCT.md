@@ -35,7 +35,7 @@ Food exploration through a physical board game on the dinner table itself, drive
 
 ## Operating Context
 
-- **Tablecloth:** coloured track printed on it, Goose-Game style. Detects character position via RFID. Receives the menu via NFC tap from the phone.
+- **Tablecloth (final design):** coloured track printed on it, Goose-Game style. Detects character position via RFID, receives the menu via NFC, and shows whose turn it is with an LED per seat plus 5 task icons at the corner. **First test: a paper board; the researcher runs turns and tasks with dice** (see docs/MANUAL.md).
 - **Characters:** a small real object the child likes (toy monkey, small train, etc.) carrying an RFID tag. The child photographs it in the app; the photo becomes its digital copy.
 - **Ritual:** menu entry + learning happens before dinner; play happens at the table during the meal.
 
@@ -46,12 +46,12 @@ Food exploration through a physical board game on the dinner table itself, drive
 - **NFC:** Web NFC works only in Chrome on Android. iOS Safari and others need a simulated/fallback transfer path in the prototype.
 - **Camera:** browser camera capture (file input with capture or getUserMedia).
 - **Track (confirmed):** always 10 squares after the start.
-- **Challenges and movement (confirmed):** run entirely by the tablecloth. Every square has a receiver that detects when the toy is moved onto it. Doing a challenge moves the toy one square forward, not doing it one square back. The app does not deal or score challenges; it only shows the toy's position, read from the cloth with an NFC tap (labelled demo where Web NFC is unavailable).
-- **Session start (confirmed):** every time the app is opened, the first screen is entering the next meal. A new menu starts when the last one was sent, or it was for another day or meal time; otherwise it is continued.
+- **Challenges and movement (confirmed):** the tasks are: smell a food, touch a food, take a bite, steal a bite from someone else, and close your eyes (always combined with another task). Tasks can go to children and parents. Doing a task moves the toy one square forward; not doing it leaves the toy where it is (never back). In the final design the tablecloth runs this; in the first test the researcher does. The app does not deal or score tasks. After dinner the family enters the toy's square by hand (the cloth will report it later).
+- **Session start (confirmed):** every time the app is opened, the first screen is picking tonight's foods. A new menu starts when the last one was finished, or it was for another day.
 - **Family model (confirmed):** one shared menu per meal and one shared toy on the tablecloth for all the kids; the app does not identify which kid is holding the phone. Kids' names are only used to greet them.
-- **Setup and handoff (confirmed):** a grown-up does first setup (family name, kids' names), then hands the phone over; the kids photograph the toy themselves.
-- **Meals (confirmed):** any meal, not only dinner. The app guesses breakfast (before 10:30), lunch (until 14:30), snack (until 17:00) or dinner from the clock; one tap switches it.
-- **Personal title (confirmed):** grown-ups set a family name; the main title reads “The <name> family menu” (default “Tonight’s crate”). A name containing menu/crate/kitchen/table/family is used as the whole title.
+- **Setup and handoff (confirmed):** a grown-up does first setup (language, kids' names), then hands the phone over. The meal comes first; the toy is photographed after the story, just before dinner.
+- **Meals (confirmed):** dinner only for now.
+- **Story (confirmed):** a short story the children read or listen to before dinner (placeholder text).
 - **No familiarity question:** foods go straight into the menu; the app does not ask whether a food is new or liked.
 - **Open:** reward details beyond "collect the finished object"; how the tablecloth shares challenges between several kids.
 - **Language:** English and Dutch (toggle on setup and in Grown-ups). Default follows the browser language.
