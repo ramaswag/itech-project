@@ -1,9 +1,9 @@
-import { MEAL_LABEL } from '../data/meals'
 import { useEffect, useRef, useState } from 'react'
 import { Band } from '../components/Shell'
-import { Art, itemView } from '../components/FoodLabel'
+import { Art, itemView, useItemView } from '../components/FoodLabel'
 import { IconCheck, IconTap } from '../components/Icons'
-import { useStore } from '../store'
+import { useStore, type MenuItem } from '../store'
+import { useI18n } from '../i18n'
 import { nfcSupported, writeMenu, type MenuPayload } from '../lib/nfc'
 import { go } from '../router'
 
@@ -11,6 +11,7 @@ type Phase = 'ready' | 'holding' | 'sent' | 'error'
 
 export default function Tap() {
   const { menu, kids, character, markSent } = useStore()
+  const { t } = useI18n()
   const supported = nfcSupported()
   const [phase, setPhase] = useState<Phase>(menu.sentAt ? 'sent' : 'ready')
   const [error, setError] = useState('')
@@ -26,10 +27,10 @@ export default function Tap() {
   const payload: MenuPayload = {
     type: 'menu',
     date: menu.date,
-    meal: menu.meal,
+    meal: 'dinner',
     kids: kids.map((k) => k.name),
     character: character?.name,
-    foods: menu.items.map((it) => ({ id: it.foodId ?? 'custom', name: itemView(it).name })),
+    foods: menu.items.map((it) => ({ id: it.foodId ?? 'custom', name: itemView(t, it).name })),
   }
 
   const send = async () => {
@@ -48,11 +49,7 @@ export default function Tap() {
       setPhase('sent')
     } catch (e) {
       const name = (e as Error).name
-      setError(
-        name === 'NotAllowedError' ? 'The phone didn’t allow NFC. Ask a grown-up to turn on NFC and allow it for this site.'
-          : name === 'AbortError' ? 'Nothing was found. Hold the phone flat on the crate square of the tablecloth and try again.'
-            : 'That didn’t work. Hold the phone still on the crate square and try again.',
-      )
+      setError(name === 'NotAllowedError' ? t('tap.err.denied') : name === 'AbortError' ? t('tap.err.abort') : t('tap.err.other'))
       setPhase('error')
     } finally {
       window.clearTimeout(timer)
@@ -61,43 +58,46 @@ export default function Tap() {
 
   const cancel = () => { abort.current?.abort(); setPhase('ready') }
 
+  // The instruction marks the key words with <b>…</b>; render them without innerHTML.
+  const instruction = t('tap.instruction').split(/<b>|<\/b>/).map((part, i) => (i % 2 ? <b key={i}>{part}</b> : part))
+
   return (
     <>
-      <Band banner="Tap the tablecloth" back="tonight" sub={`The ${MEAL_LABEL[menu.meal].toLowerCase()} menu goes to the table`} />
+      <Band banner={t('tap.title')} back="tonight" sub={t('tap.sub')} />
 
-      <div className="cloth" aria-hidden="true"><ClothArt holding={phase === 'holding'} sent={phase === 'sent'} /></div>
+      <div className="cloth" aria-hidden="true"><ClothArt holding={phase === 'holding'} sent={phase === 'sent'} label={t('tap.clothStart')} /></div>
 
       {phase === 'ready' && (
         <div className="section" style={{ marginTop: 18 }}>
-          <p className="lead">Put the phone flat on the <b>crate square</b> of the tablecloth, then press the button.</p>
-          <ul className="mini-list" aria-label="Foods being sent">
-            {menu.items.map((it) => { const v = itemView(it); return <li key={it.key}><Art panel={v.panel} size={22}>{v.art}</Art>{v.name}</li> })}
+          <p className="lead">{instruction}</p>
+          <ul className="mini-list" aria-label={t('tap.sending')}>
+            {menu.items.map((it) => <MiniFood key={it.key} item={it} />)}
           </ul>
           {!supported && (
             <p className="note" style={{ marginTop: 16 }}>
-              <span className="demo-tag">Demo</span>{' '}
-              NFC isn’t switched on yet, so sending is pretend here.
+              <span className="demo-tag">{t('common.demo')}</span>{' '}
+              {t('tap.demoNote')}
             </p>
           )}
         </div>
       )}
 
       {phase === 'holding' && (
-        <p className="status wait" role="status"><IconTap /> {supported ? 'Hold still… looking for the tablecloth' : 'Demo: sending…'}</p>
+        <p className="status wait" role="status"><IconTap /> {supported ? t('tap.holding') : t('tap.holdingDemo')}</p>
       )}
       {phase === 'sent' && (
-        <p className="status ok" role="status"><IconCheck /> {menu.sentVia === 'demo' ? `Demo: the tablecloth would now know the ${MEAL_LABEL[menu.meal].toLowerCase()} menu.` : `Sent! The tablecloth knows the ${MEAL_LABEL[menu.meal].toLowerCase()} menu.`}</p>
+        <p className="status ok" role="status"><IconCheck /> {menu.sentVia === 'demo' ? t('tap.sentDemo') : t('tap.sent')}</p>
       )}
       {phase === 'error' && <p className="status err" role="alert">{error}</p>}
 
       <div className="dock">
-        {phase === 'ready' && <button className="btn red" onClick={send}><IconTap /> {supported ? 'Start sending' : 'Send (demo)'}</button>}
-        {phase === 'holding' && <button className="btn plain" onClick={cancel}>Stop</button>}
-        {phase === 'error' && <button className="btn red" onClick={send}>Try again</button>}
+        {phase === 'ready' && <button className="btn red" onClick={send}><IconTap /> {supported ? t('tap.start') : t('tap.startDemo')}</button>}
+        {phase === 'holding' && <button className="btn plain" onClick={cancel}>{t('tap.stop')}</button>}
+        {phase === 'error' && <button className="btn red" onClick={send}>{t('tap.retry')}</button>}
         {phase === 'sent' && (
           <>
-            <button className="btn" onClick={() => go('track')}>See my track</button>
-            <button className="btn-text" onClick={() => setPhase('ready')}>Send again</button>
+            <button className="btn red" onClick={() => go('result')}><IconCheck /> {t('tap.dinnerDone')}</button>
+            <button className="btn-text" onClick={() => setPhase('ready')}>{t('tap.sendAgain')}</button>
           </>
         )}
       </div>
@@ -105,7 +105,12 @@ export default function Tap() {
   )
 }
 
-function ClothArt({ holding, sent }: { holding: boolean; sent: boolean }) {
+function MiniFood({ item }: { item: MenuItem }) {
+  const v = useItemView(item)
+  return <li><Art panel={v.panel} size={22}>{v.art}</Art>{v.name}</li>
+}
+
+function ClothArt({ holding, sent, label }: { holding: boolean; sent: boolean; label: string }) {
   const colors = ['#e2401c', '#f2b01e', '#2f7d3a', '#dfe9f5']
   const squares = []
   for (let i = 0; i < 9; i++) {
@@ -121,7 +126,7 @@ function ClothArt({ holding, sent }: { holding: boolean; sent: boolean }) {
       {squares}
       <rect x="150" y="62" width="80" height="62" fill="#16285e" />
       <path d="M150 62l10-16h60l10 16" fill="#f2b01e" stroke="#16285e" strokeWidth="3" strokeLinejoin="round" />
-      <text x="190" y="100" textAnchor="middle" fontFamily="Alfa Slab One, serif" fontSize="15" fill="#f2b01e">TAP</text>
+      <text x="190" y="100" textAnchor="middle" fontFamily="Alfa Slab One, serif" fontSize="15" fill="#f2b01e">{label}</text>
       <g className={holding ? 'phone-hover' : undefined} transform={sent ? 'translate(0 8)' : undefined}>
         {holding && <>
           <circle className="phone-wave" cx="190" cy="93" r="56" fill="none" stroke="#e2401c" strokeWidth="4" />

@@ -1,13 +1,15 @@
 import { useEffect } from 'react'
 import { StoreProvider, useStore } from './store'
+import { LangProvider, useI18n } from './i18n'
 import { go, useRoute } from './router'
 import { Nav } from './components/Shell'
 import Tonight from './screens/Tonight'
 import AddFood from './screens/AddFood'
 import Learn from './screens/Learn'
 import FoodPreview from './screens/FoodPreview'
+import Story from './screens/Story'
 import Tap from './screens/Tap'
-import Track from './screens/Track'
+import Result from './screens/Result'
 import Shelf from './screens/Shelf'
 import Capture from './screens/Capture'
 import Grownups from './screens/Grownups'
@@ -16,32 +18,34 @@ import Setup from './screens/Setup'
 let launched = false
 
 function Screens() {
-  const { state, character, saveError, startNextMeal, title } = useStore()
-  useEffect(() => { document.title = title }, [title])
+  const { state, saveError, startNextMeal } = useStore()
+  const { t } = useI18n()
+  useEffect(() => { document.title = t('app.title') }, [t])
   const [route = 'tonight', arg, ...rest] = useRoute()
 
-  // Every time the app is opened after setup, the kids start by entering the next meal
-  // (or by choosing the family's toy, when there isn't one on the track).
+  // Every time the app is opened after setup, the kids start by entering tonight's meal.
+  // The toy comes later, after the meal and the story.
   const ready = state.setupDone
   useEffect(() => {
     if (!ready || launched) return
     launched = true
     startNextMeal()
-    go(character ? 'add' : 'capture')
-  }, [ready, character, startNextMeal])
+    go('add')
+  }, [ready, startNextMeal])
 
   if (!state.setupDone) return <Setup />
 
   let screen: React.ReactNode
-  let nav: 'tonight' | 'track' | 'shelf' | null = null
+  let nav: 'tonight' | 'shelf' | null = null
   switch (route) {
     case 'add': screen = <AddFood />; break
     case 'food': screen = arg === 'new'
       ? <FoodPreview customName={safeDecode(rest[0])} />
       : <FoodPreview id={arg} />; break
     case 'learn': screen = <Learn index={Number(arg) || 0} />; break
+    case 'story': screen = <Story />; break
     case 'tap': screen = <Tap />; break
-    case 'track': screen = <Track />; nav = 'track'; break
+    case 'result': screen = <Result />; break
     case 'shelf': screen = <Shelf />; nav = 'shelf'; break
     case 'capture': screen = <Capture />; break
     case 'grownups': screen = <Grownups />; break
@@ -53,7 +57,7 @@ function Screens() {
       <main className={`main${nav ? '' : ' no-nav'}`}>{screen}</main>
       {nav && <Nav current={nav} />}
       {saveError && (
-        <p className="toast" role="alert">This phone is out of space, so changes won’t be kept. A grown-up can erase old data in Grown-ups.</p>
+        <p className="toast" role="alert">{t('app.saveError')}</p>
       )}
     </div>
   )
@@ -66,8 +70,10 @@ function safeDecode(s?: string) {
 
 export default function App() {
   return (
-    <StoreProvider>
-      <Screens />
-    </StoreProvider>
+    <LangProvider>
+      <StoreProvider>
+        <Screens />
+      </StoreProvider>
+    </LangProvider>
   )
 }

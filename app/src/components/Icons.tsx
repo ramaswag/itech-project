@@ -5,7 +5,6 @@ const base = {
 }
 
 export const IconCrate = () => (<svg {...base}><path d="M3 9h18v11H3zM3 9l2-5h14l2 5M3 14.5h18M8 9v11M16 9v11" /></svg>)
-export const IconTrack = () => (<svg {...base}><path d="M4 20h5v-5h6v-5h5V4" /><circle cx="20" cy="4" r="1.5" fill="currentColor" /><path d="M4 20v-3" /></svg>)
 export const IconShelf = () => (<svg {...base}><path d="M3 20h18M3 12h18M6 12V7h4v5M14 12V5l4 1-1 6M6 20v-4h3v4M13 20v-5h5v5" /></svg>)
 export const IconMinus = () => (<svg {...base}><path d="M5 12h14" /></svg>)
 export const IconPlus = () => (<svg {...base}><path d="M12 5v14M5 12h14" /></svg>)

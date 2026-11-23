@@ -1,34 +1,38 @@
 import { Band } from '../components/Shell'
 import { IconCamera } from '../components/Icons'
 import { TRACK_LENGTH, useStore } from '../store'
+import { useI18n } from '../i18n'
 import { go } from '../router'
 
 export default function Shelf() {
   const { character, state } = useStore()
+  const { t, locale } = useI18n()
   const done = state.characters.filter((c) => c.finishedAt)
   const slots = Math.max(6, Math.ceil((done.length + 1) / 3) * 3)
   const planks: (typeof done[number] | null)[][] = []
   for (let i = 0; i < slots; i += 3) planks.push([0, 1, 2].map((j) => done[i + j] ?? null))
 
+  const sub = done.length === 0 ? t('shelf.subNone') : done.length === 1 ? t('shelf.subOne') : t('shelf.subMany', { n: done.length })
+
   return (
     <>
-      <Band banner="Our shelf" sub={done.length ? `${done.length} ${done.length === 1 ? 'toy has' : 'toys have'} finished the track` : 'Toys that finish the track live here'} />
+      <Band banner={t('shelf.title')} sub={sub} />
 
       {character ? (
         <div className="current">
           <img src={character.sticker} alt="" />
           <div>
             <b>{character.name}</b>
-            <span>Still travelling · square {character.position} of {TRACK_LENGTH}</span>
+            <span>{t('shelf.travelling', { pos: character.position, len: TRACK_LENGTH })}</span>
           </div>
         </div>
       ) : (
         <div className="section" style={{ marginTop: 20 }}>
-          <button className="btn" onClick={() => go('capture')}><IconCamera /> Choose our next toy</button>
+          <button className="btn" onClick={() => go('capture')}><IconCamera /> {t('shelf.chooseNext')}</button>
         </div>
       )}
 
-      <div className="shelf" aria-label="Finished toys">
+      <div className="shelf" aria-label={t('shelf.finishedAria')}>
         {planks.map((row, r) => (
           <div className="plank" key={r}>
             {row.map((c, j) =>
@@ -36,7 +40,7 @@ export default function Shelf() {
                 <div className="trophy" key={c.id}>
                   <img src={c.sticker} alt="" />
                   <b>{c.name}</b>
-                  <small>{new Date(c.finishedAt!).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</small>
+                  <small>{new Date(c.finishedAt!).toLocaleDateString(locale, { day: 'numeric', month: 'short' })}</small>
                 </div>
               ) : (
                 <div className="slot-empty" key={`e${r}${j}`} aria-hidden="true" />
@@ -46,7 +50,7 @@ export default function Shelf() {
         ))}
       </div>
       {done.length === 0 && (
-        <p className="section muted" style={{ marginTop: 16 }}>When your toy reaches the end of the tablecloth track, it comes here and you choose a new one.</p>
+        <p className="section muted" style={{ marginTop: 16 }}>{t('shelf.hint')}</p>
       )}
     </>
   )

@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { guessMeal, type Meal } from './data/meals'
 
 /** The tablecloth track always has 10 squares after the start. */
 export const TRACK_LENGTH = 10
@@ -10,7 +9,7 @@ export interface MenuItem {
   customName?: string
 }
 
-/** One reading of the toy's square, taken from the tablecloth (which runs the challenges itself). */
+/** One reading of the toy's square: typed in by the family, or (later) read from the cloth over NFC. */
 export interface PositionReading {
   at: string
   position: number
@@ -33,10 +32,9 @@ export interface Kid {
   name: string
 }
 
-/** One shared menu per meal for the whole family. */
+/** Tonight's dinner: one shared plate for the whole family. */
 export interface Menu {
   date: string // yyyy-mm-dd
-  meal: Meal
   items: MenuItem[]
   sentAt?: string
   sentVia?: 'nfc' | 'demo'
@@ -45,7 +43,6 @@ export interface Menu {
 export interface State {
   version: 2
   setupDone: boolean
-  familyName?: string
   kids: Kid[]
   characters: Character[]
   activeCharacterId: string | null
@@ -61,17 +58,9 @@ export const today = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
-/** "Rossi" -> "The Rossi family menu"; a name that already reads as a title is used as written. */
-export function menuTitle(family?: string) {
-  const f = family?.trim()
-  if (!f) return 'Our family menu'
-  if (/(menu|crate|kitchen|table|family)/i.test(f)) return f
-  return `The ${f} family menu`
-}
-
 export const uid = () => Math.random().toString(36).slice(2, 10)
 
-const freshMenu = (meal: Meal = guessMeal()): Menu => ({ date: today(), meal, items: [] })
+const freshMenu = (): Menu => ({ date: today(), items: [] })
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const normLog = (log: any): PositionReading[] =>
@@ -89,11 +78,10 @@ function migrateV1(p: any): State {
   return {
     version: 2,
     setupDone: kids.length > 0,
-    familyName: p.familyName,
     kids,
     characters,
     activeCharacterId: first?.activeCharacterId ?? null,
-    menu: old ? { date: old.date, meal: guessMeal(), items: (old.items ?? []).map((i: any) => ({ key: i.key, foodId: i.foodId, customName: i.customName })), sentAt: old.sentAt, sentVia: old.sentVia } : null,
+    menu: old ? { date: old.date, items: (old.items ?? []).map((i: any) => ({ key: i.key, foodId: i.foodId, customName: i.customName })), sentAt: old.sentAt, sentVia: old.sentVia } : null,
   }
 }
 
@@ -104,6 +92,7 @@ function load(): State {
     const parsed = JSON.parse(raw)
     if (parsed.version === 1) return migrateV1(parsed)
     if (parsed.version !== 2) return initial
+    // Older saves may still carry familyName and menu.meal; they are simply ignored.
     return { ...initial, ...parsed, characters: (parsed.characters ?? []).map((c: any) => ({ ...c, log: normLog(c.log) })) }
   } catch {
     return initial
@@ -116,14 +105,11 @@ interface Store {
   kids: Kid[]
   character: Character | null
   menu: Menu
-  title: string
-  finishSetup: (familyName: string, kidNames: string[]) => void
-  setFamilyName: (name: string) => void
+  finishSetup: (kidNames: string[]) => void
   addKid: (name: string) => void
   renameKid: (id: string, name: string) => void
   removeKid: (id: string) => void
   addCharacter: (name: string, sticker: string) => void
-  setMeal: (meal: Meal) => void
   addMenuItem: (item: Omit<MenuItem, 'key'>) => string
   removeMenuItem: (key: string) => void
   markSent: (via: 'nfc' | 'demo') => void
@@ -164,15 +150,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       kids: state.kids,
       character,
       menu,
-      title: menuTitle(state.familyName),
-      finishSetup: (familyName, kidNames) =>
+      finishSetup: (kidNames) =>
         setState((s) => ({
           ...s,
           setupDone: true,
-          familyName: familyName.trim() || undefined,
           kids: kidNames.map((name) => ({ id: uid(), name })),
         })),
-      setFamilyName: (name) => setState((s) => ({ ...s, familyName: name.trim() || undefined })),
       addKid: (name) => setState((s) => ({ ...s, kids: [...s.kids, { id: uid(), name }] })),
       renameKid: (id, name) => setState((s) => ({ ...s, kids: s.kids.map((k) => (k.id === id ? { ...k, name } : k)) })),
       removeKid: (id) => setState((s) => ({ ...s, kids: s.kids.filter((k) => k.id !== id) })),
@@ -180,7 +163,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         const c: Character = { id: uid(), name, sticker, createdAt: new Date().toISOString(), position: 0, log: [] }
         setState((s) => ({ ...s, characters: [...s.characters, c], activeCharacterId: c.id }))
       },
-      setMeal: (meal) => patchMenu((m) => ({ ...m, meal, sentAt: undefined })),
       addMenuItem: (item) => {
         const key = uid()
         patchMenu((m) => ({ ...m, sentAt: undefined, items: [...m.items, { ...item, key }] }))
@@ -188,12 +170,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       },
       removeMenuItem: (key) => patchMenu((m) => ({ ...m, sentAt: undefined, items: m.items.filter((i) => i.key !== key) })),
       markSent: (via) => patchMenu((m) => ({ ...m, sentAt: new Date().toISOString(), sentVia: via })),
-      // A new meal starts when the last one was sent, or it is from another day or another meal time.
+      // A new dinner starts when the last one was sent, or it is from another day.
       startNextMeal: () =>
         setState((s) => {
           const m = s.menu
-          const meal = guessMeal()
-          if (!m || m.sentAt || m.date !== today() || m.meal !== meal) return { ...s, menu: freshMenu(meal) }
+          if (!m || m.sentAt || m.date !== today()) return { ...s, menu: freshMenu() }
           return s
         }),
       recordPosition: (p, demo) =>

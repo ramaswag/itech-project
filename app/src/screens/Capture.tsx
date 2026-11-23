@@ -3,12 +3,16 @@ import { Band } from '../components/Shell'
 import { IconCamera, IconCheck, IconRedo, IconUpload } from '../components/Icons'
 import { ACCENTS, makeSticker, type Accent } from '../lib/stylize'
 import { useStore } from '../store'
+import { useI18n } from '../i18n'
+import type { Key } from '../i18n/en'
 import { go } from '../router'
 
 type CamState = 'starting' | 'live' | 'blocked'
 
+/** Choosing the toy comes after the meal is entered: the toy is for the tablecloth, not the menu. */
 export default function Capture() {
-  const { character, addCharacter } = useStore()
+  const { menu, addCharacter } = useStore()
+  const { t } = useI18n()
   const video = useRef<HTMLVideoElement>(null)
   const stream = useRef<MediaStream | null>(null)
   const [cam, setCam] = useState<CamState>('starting')
@@ -17,7 +21,7 @@ export default function Capture() {
   const [sticker, setSticker] = useState<{ dataUrl: string; cutout: boolean } | null>(null)
   const [name, setName] = useState('')
 
-  const stop = () => { stream.current?.getTracks().forEach((t) => t.stop()); stream.current = null }
+  const stop = () => { stream.current?.getTracks().forEach((tr) => tr.stop()); stream.current = null }
 
   useEffect(() => {
     if (shot) return
@@ -25,7 +29,7 @@ export default function Capture() {
     setCam('starting')
     navigator.mediaDevices?.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 } }, audio: false })
       .then((s) => {
-        if (cancelled) { s.getTracks().forEach((t) => t.stop()); return }
+        if (cancelled) { s.getTracks().forEach((tr) => tr.stop()); return }
         stream.current = s
         if (video.current) { video.current.srcObject = s; video.current.play().catch(() => {}) }
         setCam('live')
@@ -64,15 +68,18 @@ export default function Capture() {
     img.src = URL.createObjectURL(file)
   }
 
+  // With a menu on the plate the next step is the tablecloth; from the shelf with no menu, start a meal.
   const save = () => {
     if (!sticker || !name.trim()) return
     addCharacter(name.trim(), sticker.dataUrl)
-    go('add')
+    go(menu.items.length ? 'tap' : 'add')
   }
+
+  const back = menu.items.length ? 'story' : 'shelf'
 
   const fileInput = (
     <label className="btn plain" style={{ cursor: 'pointer' }}>
-      <IconUpload /> Use a photo instead
+      <IconUpload /> {t('capture.upload')}
       <input type="file" accept="image/*" capture="environment" className="sr-only" onChange={(e) => fromFile(e.target.files?.[0])} />
     </label>
   )
@@ -80,19 +87,19 @@ export default function Capture() {
   if (!shot) {
     return (
       <>
-        <Band banner="Choose our toy" back={character ? 'track' : 'tonight'} sub="Take a photo of the toy you’ll play with" />
+        <Band banner={t('capture.title')} back={back} onBack={() => go(back)} sub={t('capture.sub')} />
         <div className="viewfinder">
-          <video ref={video} playsInline muted aria-label="Camera preview" />
+          <video ref={video} playsInline muted aria-label={t('capture.cameraAria')} />
           {cam !== 'live' && (
             <div className="vf-msg">
-              {cam === 'starting' ? 'Starting the camera…' : 'The camera isn’t available. You can choose a photo instead.'}
+              {cam === 'starting' ? t('capture.cam.starting') : t('capture.cam.blocked')}
             </div>
           )}
           <div className="corners" aria-hidden="true" />
         </div>
-        <p className="section lead">Put your toy on a plain table or a sheet of paper, close up and in the middle.</p>
+        <p className="section lead">{t('capture.tip')}</p>
         <div className="dock">
-          {cam === 'live' && <button className="btn red" onClick={snap}><IconCamera /> Take the photo</button>}
+          {cam === 'live' && <button className="btn red" onClick={snap}><IconCamera /> {t('capture.take')}</button>}
           {fileInput}
         </div>
       </>
@@ -101,35 +108,35 @@ export default function Capture() {
 
   return (
     <>
-      <Band banner="Our player" bannerTone="gold" back="tonight" onBack={() => { setShot(null); setSticker(null) }} sub="The toy, printed as a game piece" />
+      <Band banner={t('capture.player')} bannerTone="gold" back={back} onBack={() => { setShot(null); setSticker(null) }} sub={t('capture.playerSub')} />
       <div className="sticker-stage">
-        {sticker && <img key={sticker.dataUrl.length + accent} src={sticker.dataUrl} alt={`Printed sticker of ${name || 'your toy'}`} />}
+        {sticker && <img key={sticker.dataUrl.length + accent} src={sticker.dataUrl} alt={t('capture.stickerAlt', { name: name || t('capture.yourToy') })} />}
       </div>
       {sticker && !sticker.cutout && (
-        <p className="section muted" style={{ marginBottom: 12 }}>We couldn’t cut your toy out from the background, so the whole photo is printed. A plain background works better.</p>
+        <p className="section muted" style={{ marginBottom: 12 }}>{t('capture.noCutout')}</p>
       )}
       <div className="section stack">
         <div className="field" role="group" aria-labelledby="ink-label">
-          <span id="ink-label">Pick its ink</span>
+          <span id="ink-label">{t('capture.ink')}</span>
           <div className="swatches">
             {(Object.keys(ACCENTS) as Accent[]).map((a) => (
               <button
-                key={a} className="swatch" aria-pressed={accent === a} aria-label={{ red: 'Red', gold: 'Yellow', leaf: 'Green' }[a]}
+                key={a} className="swatch" aria-pressed={accent === a} aria-label={t(`capture.ink.${a}` as Key)}
                 style={{ background: `rgb(${ACCENTS[a].join(',')})` }} onClick={() => setAccent(a)}
               />
             ))}
           </div>
         </div>
         <label className="field">
-          What’s its name?
-          <input value={name} onChange={(e) => setName(e.target.value)} maxLength={24} placeholder="Captain Banana" autoComplete="off" enterKeyHint="done" />
+          {t('capture.nameLabel')}
+          <input value={name} onChange={(e) => setName(e.target.value)} maxLength={24} placeholder={t('capture.namePlaceholder')} autoComplete="off" enterKeyHint="done" />
         </label>
       </div>
       <div className="dock">
         <button className="btn red" onClick={save} disabled={!name.trim()}>
-          <IconCheck /> {name.trim() ? 'Start on square one' : 'Give it a name first'}
+          <IconCheck /> {name.trim() ? t('capture.save') : t('capture.nameFirst')}
         </button>
-        <button className="btn-text" onClick={() => { setShot(null); setSticker(null) }}><IconRedo /> Take another photo</button>
+        <button className="btn-text" onClick={() => { setShot(null); setSticker(null) }}><IconRedo /> {t('capture.again')}</button>
       </div>
     </>
   )

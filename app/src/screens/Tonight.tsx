@@ -1,21 +1,16 @@
-import { MEAL_LABEL } from '../data/meals'
-import { MealSwitch } from '../components/MealSwitch'
 import { useEffect, useState } from 'react'
 import { Band } from '../components/Shell'
 import { FoodLabel } from '../components/FoodLabel'
-import { IconCamera, IconCheck, IconPlus, IconTap } from '../components/Icons'
+import { IconCheck, IconPlus, IconTap } from '../components/Icons'
 import { useStore } from '../store'
+import { useI18n } from '../i18n'
 import { go } from '../router'
 
 export const STAMP_KEY = 'tc:stamp'
 
-export function longDate(d = new Date()) {
-  return d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
-}
-
 export default function Tonight() {
-  const { menu, character, removeMenuItem, title } = useStore()
-  const meal = MEAL_LABEL[menu.meal]
+  const { menu, removeMenuItem } = useStore()
+  const { t, locale } = useI18n()
   const [stamp, setStamp] = useState<string | null>(null)
 
   useEffect(() => {
@@ -27,33 +22,21 @@ export default function Tonight() {
 
   const n = menu.items.length
   const sent = Boolean(menu.sentAt)
+  const date = new Date().toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' })
 
   return (
     <>
-      <Band banner={title} sub={`${meal} · ${longDate()}`} />
-      <MealSwitch />
-
-      {!character && (
-        <div className="section" style={{ marginTop: 20 }}>
-          <div className="note">
-            <b>No toy on the track yet</b>
-            Take a photo of a toy to play with. It becomes your player on the tablecloth.
-            <div style={{ marginTop: 12 }}>
-              <button className="btn small ink" onClick={() => go('capture')}><IconCamera /> Choose our toy</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Band banner={t('app.title')} sub={t('tonight.sub', { date })} />
 
       <div className="count">
-        <span>Foods for {meal.toLowerCase()}</span>
-        <b aria-label={`${n} foods`}>{n}</b>
+        <span>{t('tonight.count')}</span>
+        <b aria-label={t('tonight.countAria', { n })}>{n}</b>
       </div>
 
       {n === 0 ? (
         <div className="empty">
           <EmptyCrate />
-          <p>Nothing here yet. What are you eating for {meal.toLowerCase()}?</p>
+          <p>{t('tonight.empty')}</p>
         </div>
       ) : (
         <ul className="labels">
@@ -67,7 +50,7 @@ export default function Tonight() {
             />
           ))}
           <li>
-            <button className="add-slot" onClick={() => go('add')}><IconPlus /> Add another food</button>
+            <button className="add-slot" onClick={() => go('add')}><IconPlus /> {t('tonight.addAnother')}</button>
           </li>
         </ul>
       )}
@@ -75,16 +58,19 @@ export default function Tonight() {
       <div className="dock">
         {n === 0 && (
           <button className="btn" onClick={() => go('add')}>
-            <IconPlus /> Add a food
+            <IconPlus /> {t('tonight.addFood')}
           </button>
         )}
         {sent ? (
-          <button className="btn ink" onClick={() => go('tap')}>
-            <IconCheck /> Sent to the tablecloth
-          </button>
+          <>
+            <button className="btn red" onClick={() => go('result')}>
+              <IconCheck /> {t('tonight.dinnerFinished')}
+            </button>
+            <button className="btn-text" onClick={() => go('tap')}>{t('tonight.sentToCloth')}</button>
+          </>
         ) : n > 0 && (
-          <button className="btn red" onClick={() => go('tap')}>
-            <IconTap /> Done! Tap the tablecloth
+          <button className="btn red" onClick={() => go('story')}>
+            <IconTap /> {t('tonight.done')}
           </button>
         )}
       </div>

@@ -44,7 +44,7 @@ export async function writeMenu(payload: MenuPayload, signal: AbortSignal) {
   )
 }
 
-/** Read the toy's square from the tablecloth. The cloth runs the challenges and detects the toy on each square. */
+/** Read the toy's square from the tablecloth. Not used yet: until NFC is on, the Result screen asks the family for the square.  The cloth runs the challenges and detects the toy on each square. */
 export function readPosition(signal: AbortSignal): Promise<number> {
   return new Promise((resolve, reject) => {
     const r = new window.NDEFReader!()

@@ -54,7 +54,7 @@ Food exploration through a physical board game on the dinner table itself, drive
 - **Personal title (confirmed):** grown-ups set a family name; the main title reads “The <name> family menu” (default “Tonight’s crate”). A name containing menu/crate/kitchen/table/family is used as the whole title.
 - **No familiarity question:** foods go straight into the menu; the app does not ask whether a food is new or liked.
 - **Open:** reward details beyond "collect the finished object"; how the tablecloth shares challenges between several kids.
-- **Open: language.** Brief written in English; assume English copy until told otherwise.
+- **Language:** English and Dutch (toggle on setup and in Grown-ups). Default follows the browser language.
 - **Open: product name.**
 
 ## Evidence on Hand
